@@ -1,0 +1,5 @@
+C:\Users\Brandon\TournamentBuilder\TournamentBuilder.exe
+C:\Users\Brandon\TournamentBuilder\TournamentBuilder.dll
+C:\Users\Brandon\TournamentBuilder\TournamentBuilder.deps.json
+C:\Users\Brandon\TournamentBuilder\TournamentBuilder.runtimeconfig.json
+C:\Users\Brandon\TournamentBuilder\TournamentBuilder.pdb
