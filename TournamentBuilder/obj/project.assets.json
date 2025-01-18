@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GithubRepos\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder.csproj",
+      "projectUniqueName": "D:\\GithubRepos\\tournament-scheduler\\TournamentBuilder\\TournamentBuilder.csproj",
       "projectName": "TournamentBuilder",
-      "projectPath": "D:\\GithubRepos\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder.csproj",
+      "projectPath": "D:\\GithubRepos\\tournament-scheduler\\TournamentBuilder\\TournamentBuilder.csproj",
       "packagesPath": "C:\\Users\\Brandon\\.nuget\\packages\\",
-      "outputPath": "D:\\GithubRepos\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder\\obj\\",
+      "outputPath": "D:\\GithubRepos\\tournament-scheduler\\TournamentBuilder\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

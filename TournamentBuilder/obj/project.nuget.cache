@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EVzUMjc4tdwaYpKiTDJ0frRKjGJ5GJB2yFj32/fRWxT3EcIpXp3a34FROFx7q1cHAhwtvypmMcrMBbErDdLgvw==",
+  "dgSpecHash": "f5O62yNkkpbWsz+jArf/Cft+2F+7TBbQi7O03F+zJ++dn/Q2N3R16REgjYy2A20vuQu2EN1qnX5xi7g71ET5YQ==",
   "success": true,
-  "projectFilePath": "D:\\GithubRepos\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder\\TournamentBuilder.csproj",
+  "projectFilePath": "D:\\GithubRepos\\tournament-scheduler\\TournamentBuilder\\TournamentBuilder.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
