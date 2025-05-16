@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using TournamentBuilder.Models;
 
 namespace TournamentBuilder
@@ -14,11 +6,14 @@ namespace TournamentBuilder
     public partial class TournamentForm : Form
     {
         public List<Round> rounds { get; set; }
+        public List<Team> allTeams { get; set; }
+
+        public bool standingsAlreadyGenerated = false;
 
         // Default x values
         public const int TXTBOX_TEAM1_X = 181;
         public const int TXTBOX_TEAM2_X = 429;
-        public const int LBL_TEAM1_X = 106;
+        public const int LBL_TEAM1_X = 30;
         public const int LBL_TEAM2_X = 592;
         public const int CBX_OVERTIME_X = 797;
 
@@ -30,6 +25,7 @@ namespace TournamentBuilder
         {
             InitializeComponent();
             this.rounds = rounds;
+            this.allTeams = new List<Team>();
             adjustTabs();
             initializeTabs();
         }
@@ -143,6 +139,84 @@ namespace TournamentBuilder
         private void TournamentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void BtnGenerateStandings_Click(object sender, EventArgs e)
+        {
+            bool validResults = true;
+            List<Team> orderedTeams = new List<Team>();
+
+
+            // Validate fields
+            for (int roundIndex = 0; roundIndex < TabControlTournament.TabPages.Count - 1; roundIndex++)
+            {
+                if (!StandingsHelper.validateRoundTab(TabControlTournament.TabPages[roundIndex], roundIndex + 1))
+                {
+                    validResults = false;
+                    break;
+                }
+            }
+
+            // Add teams to list, and clear their fields if the standings have already been generated at least once
+            foreach (Game game in rounds[0].Games)
+            {
+                if (standingsAlreadyGenerated)
+                {
+                    game.team1.clearResultsFields();
+                    game.team2.clearResultsFields();
+                }
+
+                allTeams.Add(game.team1);
+                allTeams.Add(game.team2);
+            }
+
+            if (validResults)
+            {
+                standingsAlreadyGenerated = true;
+
+                for (int roundIndex = 0; roundIndex < rounds.Count; roundIndex++)
+                {
+                    foreach (TextBox txtBox in TabControlTournament.TabPages[roundIndex].Controls.OfType<TextBox>())
+                    {
+                        Game correspondingGame = rounds[roundIndex].Games.Where(x => x.team1.teamName.Equals(txtBox.Tag.ToString())
+                                                                             || x.team2.teamName.Equals(txtBox.Tag.ToString())).First();
+
+                        if (correspondingGame.team1.teamName.Equals(txtBox.Tag.ToString()))
+                        {
+                            //This will work, as we've already validated the field
+                            correspondingGame.team1Score = int.Parse(txtBox.Text);
+                        }
+                        else
+                        {
+                            correspondingGame.team2Score = int.Parse(txtBox.Text);
+                        }
+                    }
+
+                    foreach (CheckBox cbxOvertime in TabControlTournament.TabPages[roundIndex].Controls.OfType<CheckBox>())
+                    {
+                        //Find the game that the checkbox corresponds to and set it equal to the checked state
+                        rounds[roundIndex].Games.Where(x => x.team1.teamName.Equals(cbxOvertime.Tag.ToString())).First().overtime = cbxOvertime.Checked;
+                    }
+
+                    foreach (Game game in rounds[roundIndex].Games)
+                    {
+                        game.evaluateGame();
+                    }
+                }
+
+                foreach (Team team in allTeams)
+                {
+                    team.calculatePointsPercentage();
+                    team.calculateGoalDifferential();
+                }
+
+                orderedTeams = allTeams.OrderByDescending(x => x.pointsPercent)
+                                       .ThenByDescending(x => x.goalDifferential)
+                                       .ThenByDescending(x => x.goalsFor)
+                                       .ToList();
+
+                DgvStandings.DataSource = StandingsHelper.generateStandings(orderedTeams);
+            }
         }
     }
 }

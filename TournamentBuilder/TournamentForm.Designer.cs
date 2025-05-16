@@ -153,6 +153,7 @@
             this.BtnGenerateStandings.TabIndex = 2;
             this.BtnGenerateStandings.Text = "Generate";
             this.BtnGenerateStandings.UseVisualStyleBackColor = true;
+            this.BtnGenerateStandings.Click += new System.EventHandler(this.BtnGenerateStandings_Click);
             // 
             // LblStandings
             // 
@@ -166,7 +167,11 @@
             // 
             // DgvStandings
             // 
+            this.DgvStandings.AllowUserToAddRows = false;
+            this.DgvStandings.AllowUserToDeleteRows = false;
+            this.DgvStandings.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.DgvStandings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvStandings.GridColor = System.Drawing.SystemColors.ControlLightLight;
             this.DgvStandings.Location = new System.Drawing.Point(39, 86);
             this.DgvStandings.Name = "DgvStandings";
             this.DgvStandings.RowHeadersWidth = 51;
