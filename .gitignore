@@ -1,0 +1,12 @@
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+*.cache
+*.pdb
+*.resources
+*.vsidx
+*.suo
